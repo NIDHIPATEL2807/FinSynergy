@@ -10,10 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ant-design/charts": "^1.4.3",
+    "@ant-design/charts": "^2.2.1",
     "@tailwindcss/vite": "^4.0.4",
     "antd": "^5.15.3",
     "firebase": "^11.3.0",
+    "lucide-react": "^0.475.0",
     "papaparse": "^5.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

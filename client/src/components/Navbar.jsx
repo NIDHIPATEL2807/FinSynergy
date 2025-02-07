@@ -14,8 +14,8 @@ const Navbar = () => {
         <Link to="/gamified" className="hover:underline">
           Gamified
         </Link>
-        <Link to="/tracker" className="hover:underline">
-          Tracker
+        <Link to="/dashboard" className="hover:underline">
+          Dashboard
         </Link>
       </div>
 
