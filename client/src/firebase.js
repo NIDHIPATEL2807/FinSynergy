@@ -4,38 +4,16 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAZWJZ_S4QSZVR-GukZqLLm8E6-_WG-OmQ",
-//   authDomain: "financeflow-6d9cd.firebaseapp.com",
-//   projectId: "financeflow-6d9cd",
-//   storageBucket: "financeflow-6d9cd.appspot.com",
-//   messagingSenderId: "956926070616",
-//   appId: "1:956926070616:web:123575d8de38276eb65f2d",
-//   measurementId: "G-E8EXYY6PXP",
-// };
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB8s60VbPm-BM9ZVexPARh7aO5srfsDkoo",
-  authDomain: "finansync-c8ae6.firebaseapp.com",
-  projectId: "finansync-c8ae6",
-  storageBucket: "finansync-c8ae6.appspot.com",
-  messagingSenderId: "51201476555",
-  appId: "1:51201476555:web:8040df7e72e7ee9083184e",
-  measurementId: "G-48XPNHWTXL"
+  apiKey: "AIzaSyDqf_ZVgr3kX28NKw8RiO1mmGVparp6ug8",
+  authDomain: "finsynergy-3609f.firebaseapp.com",
+  projectId: "finsynergy-3609f",
+  storageBucket: "finsynergy-3609f.firebasestorage.app",
+  messagingSenderId: "802537811585",
+  appId: "1:802537811585:web:e6cba551a01d62bf536780",
+  measurementId: "G-1HD2SBK73N"
 };
-
-
-// const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-//   appId: process.env.REACT_APP_FIREBASE_APP_ID,
-//   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
