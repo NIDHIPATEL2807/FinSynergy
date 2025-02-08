@@ -15,23 +15,8 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/gamified" element={<Gamified />} />
-        {console.log(isAuthenticated)}
-        {/* If user is not auAthenticated, redirect to signup first */}
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
-        
-        {/* After signing up, navigate to dashboard */}
-        <Route
-          path="/signup"
-          element={<Signup onLogin={() => {
-            setIsAuthenticated(true);
-            console.log("isAuthenticated wowowowow: " + isAuthenticated);
-            ;
-          }} />}
-        />
-        {console.log(isAuthenticated)}
+        <Route path="/dashboard" element={<Signup />} />
+          <Route path="/personal-dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

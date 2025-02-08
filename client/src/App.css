@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+:root {
+    --dgreen: #2c5d63;
+    --lgreen: #3ab7bf;
+  }
+
 .wrapper, .charts-wrapper{
     display: flex;
     align-items: center;

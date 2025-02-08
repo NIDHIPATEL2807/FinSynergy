@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        textdark: "#2c5d63",  // Custom text color
-        textlight: "#a2c11c",  // Custom background color
+        dgreen: "#2c5d63", // Dark Green
+        lgreen: "#3ab7bf", // Light Green
       },
     },
   },
