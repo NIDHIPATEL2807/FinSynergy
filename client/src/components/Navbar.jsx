@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center bg-blue-600 text-white p-4 shadow-md">
+    <nav className="flex justify-between items-center bg-teal-950  text-white p-4 shadow-md">
       {/* Logo & App Name */}
-      <Link to="/" className="text-2xl font-bold">
+      <Link to="/" className="text-2xl font-satoshi font-[600]">
         FinSynergy
       </Link>
 

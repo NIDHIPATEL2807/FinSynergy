@@ -14,7 +14,7 @@ const tickerItems = [
 
 const StockTicker = () => {
   return (
-    <div className="overflow-hidden bg-gray-900  text-white py-3">
+    <div className="overflow-hidden bg-teal-800  text-white py-3">
       <motion.div
         className="flex space-x-12 whitespace-nowrap"
         animate={{ x: ["100%", "-100%"] }}

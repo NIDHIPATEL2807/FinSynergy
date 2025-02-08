@@ -169,99 +169,138 @@ const StockSimulation = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold mb-4">Stock Market Simulation</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="p-6 bg-white rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Trading Dashboard</h3>
-            <div className="space-y-2">
+    <div className="min-h-screen p-6 bg-teal-950" 
+    // style={{ backgroundColor: '#33372C' }}
+    >
+  <div className="max-w-7xl mx-auto space-y-6">
+    {/* Header Section */}
+    <div className="rounded-xl p-6 bg-teal-900 " 
+    // style={{ backgroundColor: '#FF885B' }}
+    >
+      <h1 className="text-3xl font-bold text-white mb-6">Stock Market Simulation</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input
+          type="text"
+          value={symbol}
+          onChange={(e) => setSymbol(e.target.value.toUpperCase())}
+          className="rounded-lg p-2 bg-white/10 text-white border border-white/20"
+          placeholder="Enter stock symbol (e.g., AAPL)"
+        />
+        <select
+          value={timeInterval}
+          onChange={(e) => setTimeInterval(e.target.value)}
+          className="rounded-lg p-2 bg-white/10 text-white border border-white/20"
+        >
+          <option value="1min">1 Minute</option>
+          <option value="5min">5 Minutes</option>
+          <option value="15min">15 Minutes</option>
+          <option value="30min">30 Minutes</option>
+          <option value="60min">60 Minutes</option>
+        </select>
+        <button 
+          onClick={fetchStockData}
+          className="rounded-lg p-2 font-semibold transition-colors duration-200"
+          style={{ backgroundColor: '#FF885B', color: '#FFE5CF' }}
+        >
+          Refresh Data
+        </button>
+      </div>
+    </div>
+
+    {/* Main Grid */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Chart Section */}
+      <div className="lg:col-span-8 rounded-xl p-6" style={{ backgroundColor: '#A0C878' }}>
+        <Line data={chartData} options={{
+          ...chartOptions,
+          plugins: {
+            ...chartOptions.plugins,
+            legend: {
+              ...chartOptions.plugins.legend,
+              labels: { color: '#143D60' }
+            }
+          },
+          scales: {
+            y: {
+              grid: { color: 'rgba(20,61,96,0.2)' },
+              ticks: { color: '#143D60' }
+            },
+            x: {
+              grid: { color: 'rgba(20,61,96,0.2)' },
+              ticks: { color: '#143D60' }
+            }
+          }
+        }} />
+      </div>
+
+      {/* Trading Section */}
+      <div className="lg:col-span-4 space-y-6">
+        <div className="rounded-xl p-6" style={{ backgroundColor: '#DDEB9D' }}>
+          <h3 className="text-xl font-semibold text-black mb-4">Trading</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-black mb-2">Quantity</label>
               <input
-                type="text"
-                value={symbol}
-                onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-                className="border p-2 rounded w-full"
-                placeholder="Enter stock symbol (e.g., AAPL)"
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
+                className="w-full rounded-lg p-2 bg-white/10 text-black border border-black/20"
               />
-              <select
-                value={timeInterval}
-                onChange={(e) => setTimeInterval(e.target.value)}
-                className="border p-2 rounded w-full"
-              >
-                <option value="1min">1 Minute</option>
-                <option value="5min">5 Minutes</option>
-                <option value="15min">15 Minutes</option>
-                <option value="30min">30 Minutes</option>
-                <option value="60min">60 Minutes</option>
-              </select>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
               <button 
-                onClick={fetchStockData}
-                className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600"
+                onClick={buyShares}
+                className="p-2 rounded-lg font-semibold text-white transition-opacity duration-200 hover:opacity-90"
+                style={{ backgroundColor: '#557C56' }}
               >
-                Refresh Data
+                Buy
+              </button>
+              <button 
+                onClick={sellShares}
+                className="p-2 rounded-lg font-semibold text-white transition-opacity duration-200 hover:opacity-90"
+                style={{ backgroundColor: '#27667B' }}
+              >
+                Sell
               </button>
             </div>
           </div>
-
-          <div className="p-6 bg-white rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Portfolio Status</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-600">Current Price</p>
-                <p className="text-2xl font-bold">${currentPrice?.toFixed(2)}</p>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-600">Portfolio Value</p>
-                <p className="text-2xl font-bold">${portfolioValue.toFixed(2)}</p>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-600">Cash Available</p>
-                <p className="text-2xl font-bold">${wallet.toFixed(2)}</p>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-600">Shares Owned</p>
-                <p className="text-2xl font-bold">{shares}</p>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Quantity</label>
-            <input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            />
+        {/* Portfolio Status */}
+        <div className="rounded-xl p-6" style={{ backgroundColor: '#A0C878' }}>
+          <h3 className="text-xl font-semibold text-white mb-4">Portfolio Status</h3>
+          <div className="grid gap-4">
+            <div className="p-4 rounded-lg bg-white/10">
+              <p className="text-white/60">Current Price</p>
+              <p className="text-2xl font-bold text-white">${currentPrice?.toFixed(2)}</p>
+            </div>
+            <div className="p-4 rounded-lg bg-white/10">
+              <p className="text-white/60">Portfolio Value</p>
+              <p className="text-2xl font-bold text-white">${portfolioValue.toFixed(2)}</p>
+            </div>
+            <div className="p-4 rounded-lg bg-white/10">
+              <p className="text-white/60">Cash Available</p>
+              <p className="text-2xl font-bold text-white">${wallet.toFixed(2)}</p>
+            </div>
+            <div className="p-4 rounded-lg bg-white/10">
+              <p className="text-white/60">Shares Owned</p>
+              <p className="text-2xl font-bold text-white">{shares}</p>
+            </div>
           </div>
-          <button 
-            onClick={buyShares}
-            className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors"
-          >
-            Buy Shares
-          </button>
-          <button 
-            onClick={sellShares}
-            className="bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors"
-          >
-            Sell Shares
-          </button>
         </div>
       </div>
 
+      {/* Company Info */}
       {stockInfo && (
-        <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-          <h3 className="text-xl font-semibold mb-4">Company Information</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
+        <div className="lg:col-span-12 rounded-xl p-6" style={{ backgroundColor: '#557C56' }}>
+          <h3 className="text-xl font-semibold text-white mb-4">Company Information</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-2 text-white">
               <p className="font-medium">Name: {stockInfo.Name}</p>
-              <p className="text-sm text-gray-600">{stockInfo.Description}</p>
+              <p className="text-white/70">{stockInfo.Description}</p>
             </div>
-            <div>
+            <div className="space-y-2 text-white">
               <p>Sector: {stockInfo.Sector}</p>
               <p>Industry: {stockInfo.Industry}</p>
               <p>Market Cap: {stockInfo.MarketCapitalization}</p>
@@ -271,60 +310,46 @@ const StockSimulation = () => {
         </div>
       )}
 
-      <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">Transaction History</h3>
+      {/* Transaction History */}
+      <div className="lg:col-span-12 rounded-xl p-6" style={{ backgroundColor: '#27667B' }}>
+        <h3 className="text-xl font-semibold text-white mb-4">Transaction History</h3>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
+          <table className="w-full">
             <thead>
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shares</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <tr className="text-white/60 border-b border-white/10">
+                <th className="text-left p-4">Type</th>
+                <th className="text-left p-4">Shares</th>
+                <th className="text-left p-4">Price</th>
+                <th className="text-left p-4">Total</th>
+                <th className="text-left p-4">Date</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody>
               {transactions.map((transaction, index) => (
-                <tr key={index} className={transaction.type === 'BUY' ? 'text-green-600' : 'text-red-600'}>
-                  <td className="px-6 py-4 whitespace-nowrap">{transaction.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{transaction.shares}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">${transaction.price.toFixed(2)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">${transaction.total.toFixed(2)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{transaction.date}</td>
+                <tr key={index} className="text-white border-b border-white/10">
+                  <td className="p-4">{transaction.type}</td>
+                  <td className="p-4">{transaction.shares}</td>
+                  <td className="p-4">${transaction.price.toFixed(2)}</td>
+                  <td className="p-4">${transaction.total.toFixed(2)}</td>
+                  <td className="p-4">{transaction.date}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-
-      <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">Performance Metrics</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <p className="text-gray-600">Total Profit/Loss</p>
-            <p className={`text-2xl font-bold ${profitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              ${profitLoss.toFixed(2)}
-            </p>
-          </div>
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <p className="text-gray-600">Return on Investment</p>
-            <p className={`text-2xl font-bold ${profitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {((profitLoss / 1000) * 100).toFixed(2)}%
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {loading && <p className="text-center">Loading...</p>}
-      {error && <p className="text-red-500 text-center">{error}</p>}
-      
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <Line data={chartData} options={chartOptions} />
-      </div>
     </div>
+  </div>
+</div>
+
+
+
+
   );
 };
 
 export default StockSimulation;
+
+
+
+

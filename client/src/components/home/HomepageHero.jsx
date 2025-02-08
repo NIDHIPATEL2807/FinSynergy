@@ -9,7 +9,7 @@ const HomePageHero = () => {
   }, []);
 
   return (
-    <section className="relative pt-20 pb-16 px-4 bg-textlight">
+    <section className="relative pt-10  pb-16 px-4 bg-textlight">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -26,7 +26,7 @@ const HomePageHero = () => {
         >
           Your FinTech journey begins with <br />
           <motion.span
-            className="text-blue-600 inline-block"
+            className="text-teal-900 inline-block "
             animate={{ rotate: [0, 5, -5, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
           >
@@ -39,7 +39,7 @@ const HomePageHero = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold shadow-lg text-lg"
+            className="px-6 py-3 bg-teal-700 text-white rounded-full font-semibold shadow-lg text-lg"
             data-aos="fade-up" 
             data-aos-delay="400"
           >
@@ -48,7 +48,7 @@ const HomePageHero = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-white text-textdark rounded-full font-semibold border-2 border-blue-600 shadow-lg text-lg"
+            className="px-8 py-3 bg-white text-textdark rounded-full font-semibold border-3 border-teal-500 shadow-lg text-lg"
             data-aos="fade-up" 
             data-aos-delay="500"
           >
@@ -59,9 +59,8 @@ const HomePageHero = () => {
         
 
         {/* Personal Finance Section */}
-        <div className="mt-10 text-center max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="400">
-          <h2 className="text-2xl font-bold text-textdark">Personal Finance</h2>
-          <p className="text-md text-gray-700 mt-2">
+        <div className="mt-10 text-center max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+          <p className="text-lg text-teal-950 mt-2">
             FinSynergy empowers you to take control of your finances with expert guidance, smart budgeting, 
             and hands-on trading practice—your financial future, at your fingertips.
           </p>

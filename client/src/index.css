@@ -1,15 +1,22 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+
 @import "tailwindcss";
 
 
 
-:root {
+@theme {
+
+  --font-satoshi: "Satoshi", "sans-serif";
+  --font-poppins: "Poppins", "sans-serif";
+
+
   --theme: #2970ff;
   --black: #000;
   --white: #fff;
-  --dgreen: #2c5d63;
-  --lgreen: #3ab7bf;
+  --color-dgreen: #2c5d63;
+  --color-lgreen: #3ab7bf;
   --shadow: 0px 0px 30px 8px rgba(227, 227, 227, 0.75);
  }
 
