@@ -6,18 +6,21 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AppRoutes from './components/routes/Routes';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
-      <Router>
+      {/* <Router>
         <Routes>
           <Route path="/" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-      </Router>
+      </Router> */}
+
+      <AppRoutes/>
     </>
   )
 }

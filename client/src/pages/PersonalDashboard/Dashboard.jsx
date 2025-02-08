@@ -154,7 +154,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Header />
+      
       {loading ? (
         <DashBoardLoader />
       ) : (
