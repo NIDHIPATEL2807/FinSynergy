@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+
+const tickerItems = [
+  { name: "S&P 500 Index", price: "4,500", change: "+0.5%", color: "text-green-500" },
+  { name: "US 100 Cash CFD", price: "15,200", change: "-0.3%", color: "text-red-500" },
+  { name: "EUR to USD", price: "1.10", change: "+0.2%", color: "text-green-500" },
+  { name: "Bitcoin", price: "$45,000", change: "+2.1%", color: "text-green-500" },
+  { name: "Apple Inc", price: "$175.50", change: "-1.2%", color: "text-red-500" },
+  { name: "Alphabet Inc", price: "$135.20", change: "+0.8%", color: "text-green-500" },
+];
 
 const StockTicker = () => {
-  const [stocks] = useState([
-    { symbol: 'AAPL', price: '175.84', change: '+2.34' },
-    { symbol: 'GOOGL', price: '2934.65', change: '-1.23' },
-    { symbol: 'MSFT', price: '338.11', change: '+1.56' },
-    { symbol: 'AMZN', price: '3456.78', change: '+4.21' }
-  ]);
-
   return (
-    <div className="bg-gray-900 text-white py-2 overflow-hidden">
-      <div className="flex animate-marquee whitespace-nowrap">
-        {stocks.map((stock, index) => (
-          <div key={index} className="mx-8">
-            <span className="font-bold">{stock.symbol}</span>
-            <span className="mx-2">${stock.price}</span>
-            <span className={stock.change.startsWith('+') ? 'text-green-400' : 'text-red-400'}>
-              {stock.change}%
-            </span>
+    <div className="overflow-hidden bg-gray-900  text-white py-3">
+      <motion.div
+        className="flex space-x-12 whitespace-nowrap"
+        animate={{ x: ["100%", "-100%"] }}
+        transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
+      >
+        {tickerItems.concat(tickerItems).map((item, index) => ( // Duplicated for seamless loop
+          <div key={index} className="flex items-center gap-  space-x-3 min-w-max">
+            <span className="font-semibold">{item.name}</span>
+            <span className="text-sm">${item.price}</span>
+            <span className={`text-sm ${item.color}`}>{item.change}</span>
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
