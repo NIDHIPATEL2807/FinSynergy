@@ -6,7 +6,7 @@ const ChatbotButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openChatbotWindow = () => {
-    window.open("http://localhost:3001", "_blank"); // Opens another localhost file in a new tab
+    window.open("http://localhost:3000", "_blank"); // Opens another localhost file in a new tab
   };
 
   return (

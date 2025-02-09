@@ -1,13 +1,38 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Brain, Calendar, TrendingUp, Trophy } from "lucide-react";
+import { FaLightbulb, FaWallet, FaCalendarAlt, FaChartLine, FaBrain, FaLock } from "react-icons/fa"; // Importing icons from react-icons
 
 const features = [
-  { icon: Brain, title: "Interactive Quizzes", description: "Earn coins by testing your financial knowledge" },
-  { icon: Calendar, title: "Daily Challenges", description: "Complete tasks & maintain your learning streak" },
-  { icon: TrendingUp, title: "Stock Simulator", description: "Practice trading with virtual currency" },
-  { icon: Trophy, title: "Leaderboard", description: "Compete with friends & top traders" },
-  { icon: Trophy, title: "Personal Finance", description: "Manage your personal finance effectively" },
+  {
+    icon: FaLightbulb,  // AI-powered feature icon
+    title: "FinBot - AI-Powered Financial Assistant",
+    description: "Get personalized financial advice, investment insights, and predictions. FinMate simplifies complex financial terms, offering a smart way to navigate the world of finance."
+  },
+  {
+    icon: FaWallet,  // Finance management icon
+    title: "FinMate - Personal Finance Dashboard",
+    description: "FinMate helps you manage and track your income, expenses, and financial goals. Visualize your progress with interactive charts and gain insights into your spending habits."
+  },
+  {
+    icon: FaCalendarAlt,  // Community forum icon
+    title: "Fin-Connect - Community Forum",
+    description: "Join a financial community to ask questions, share insights, and engage with other learners. Enhance your knowledge and grow together."
+  },
+  {
+    icon: FaChartLine,  // Stock simulation icon
+    title: "Stock Simulator",
+    description: "Dive into real stock market trends with virtual currency. Practice trading, track your performance, and refine your strategies without any financial risk."
+  },
+  {
+    icon: FaBrain,  // Quizzes & challenges icon
+    title: "FinEd - Interactive Quizzes & Challenges",
+    description: "Test your financial knowledge with engaging quizzes and daily challenges. Earn virtual coins and rewards as you progress, keeping your financial learning fun and streak-based."
+  },
+  {
+    icon: FaLock,  // Quizzes & challenges icon
+    title: "Firebase based Authentication",
+    description: "Firebase Firestore for data storage and authentication"
+  },
 ];
 
 const FeaturesSection = () => {
@@ -28,7 +53,7 @@ const FeaturesSection = () => {
               animate={isInView ? { rotateY: 0, opacity: 1 } : {}}
               transition={{ type: "spring", stiffness: 200 }}
             >
-              <Icon className="w-12 h-12  text-teal-950 mb-4 justify-center " />
+              <Icon className="w-12 h-12 text-teal-950 mb-4 justify-center" />
               <h3 className="text-xl font-bold mb-2">{title}</h3>
               <p className="text-gray-600">{description}</p>
             </motion.div>
