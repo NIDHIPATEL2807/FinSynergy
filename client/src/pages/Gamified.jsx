@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from '../firebase';
-import StockSimulation from '../components/gamify/StockSimulation'
-import Learning from '../components/gamify/Learning'
-import { signOut } from "firebase/auth";
-import { FaUserCircle } from "react-icons/fa";
-// import { toast } from "react-hot-toast";
+import { auth, db } from "../firebase";
+import StockSimulation from "../components/gamify/StockSimulation";
+import Learning from "../components/gamify/Learning";
+import DashboardNavbar from "../components/DashboardNavbar";
 
 const Gamified = () => {
   const [user] = useAuthState(auth);
@@ -19,7 +17,7 @@ const Gamified = () => {
       if (user) {
         const walletRef = doc(db, "users", user.uid);
         const walletDoc = await getDoc(walletRef);
-        
+
         if (walletDoc.exists() && walletDoc.data().wallet) {
           setWallet(walletDoc.data().wallet);
         } else {
@@ -28,7 +26,7 @@ const Gamified = () => {
         }
       }
     };
-    
+
     fetchWallet();
   }, [user]);
 
@@ -40,58 +38,17 @@ const Gamified = () => {
         await setDoc(walletRef, { wallet }, { merge: true });
       }
     };
-    
+
     updateWallet();
   }, [wallet, user]);
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        toast.success("Logged out successfully!");
-      })
-      .catch((error) => {
-        toast.error("Error logging out");
-      });
-  };
-
   return (
-    <div className="container mx-auto p-4">
-      <nav className="mb-8 flex justify-between items-center">
-        <ul className="flex space-x-4">
-          <li>
-            <Link 
-              to="/gamified/simulation" 
-              className="text-blue-500 hover:text-blue-700 font-medium"
-            >
-              Stock Simulation
-            </Link>
-          </li>
-          <li>
-            <Link 
-              to="/gamified/learning" 
-              className="text-blue-500 hover:text-blue-700 font-medium"
-            >
-              Learning
-            </Link>
-          </li>
-        </ul>
-        
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <FaUserCircle className="text-2xl text-gray-600" />
-            <span className="font-medium">{user?.displayName || user?.email}</span>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-          >
-            Logout
-          </button>
-        </div>
-      </nav>
-      
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2>Current wallet: ${wallet}</h2>
+    <div className="p-0 m-0 bg-teal-950">
+      {/* Navbar Component */}
+      <DashboardNavbar user={user} />
+
+      <div className="rounded-lg shadow p-6">
+        <h2 className="text-satoshi font-satoshi text-amber-50 font-bold ml-3 text-4xl bg-amber-600  p-0.5">Current wallet: ${wallet}</h2>
         <Routes>
           <Route index element={<StockSimulation wallet={wallet} setWallet={setWallet} />} />
           <Route path="simulation" element={<StockSimulation wallet={wallet} setWallet={setWallet} />} />

@@ -395,230 +395,244 @@ const Learning = ({ wallet, setWallet }) => {
     const isCompleted = completedLessons.includes(lesson.id);
 
     return (
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h4 className="text-xl font-semibold mb-2">{lesson.title}</h4>
-        <p className="text-gray-600 mb-4">{lesson.content}</p>
-        
-        {/* Progress Bar */}
-        <div className="mb-4">
-          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                isCompleted ? 'bg-green-600' : 'bg-blue-600'
-              }`}
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-          <div className="flex justify-between text-sm text-gray-600 mt-1">
-            <span>Progress: {progress}%</span>
-            {isCompleted && <span className="text-green-600">Completed!</span>}
-          </div>
-        </div>
+      
 
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <span className="text-blue-500">{lesson.points} points</span>
-            <span className="text-sm text-gray-500">
-              {progress < 100 ? `+5 coins per progress` : 'Completed'}
-            </span>
-          </div>
-          {!isCompleted ? (
-            <button
-              onClick={() => handleLessonAction(lesson.id, progress)}
-              className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 text-white"
-            >
-              {progress === 0 ? 'Start Lesson' : progress >= 90 ? 'Complete Lesson' : 'Continue'}
-            </button>
-          ) : (
-            <button
-              disabled
-              className="px-4 py-2 rounded bg-gray-300 text-gray-600 cursor-not-allowed"
-            >
-              Completed
-            </button>
-          )}
-        </div>
-      </div>
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+  <h4 className="text-xl font-semibold mb-2 text-teal-950">{lesson.title}</h4>
+  <p className="text-stone-800 mb-4">{lesson.content}</p>
+  
+  {/* Progress Bar */}
+  <div className="mb-4">
+    <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+      <div
+        className={`h-2.5 rounded-full transition-all duration-300 ${
+          isCompleted ? 'bg-teal-700' : 'bg-teal-600'
+        }`}
+        style={{ width: `${progress}%` }}
+      ></div>
+    </div>
+    <div className="flex justify-between text-sm text-gray-600 mt-1">
+      <span>Progress: {progress}%</span>
+      {isCompleted && <span className="text-teal-700">Completed!</span>}
+    </div>
+  </div>
+
+  <div className="flex justify-between items-center">
+    <div className="flex flex-col">
+      <span className="text-teal-600">{lesson.points} points</span>
+      <span className="text-sm text-stone-500">
+        {progress < 100 ? `+5 coins per progress` : 'Completed'}
+      </span>
+    </div>
+    {!isCompleted ? (
+      <button
+        onClick={() => handleLessonAction(lesson.id, progress)}
+        className="px-4 py-2 rounded bg-teal-600 hover:bg-teal-700 text-white"
+      >
+        {progress === 0 ? 'Start Lesson' : progress >= 90 ? 'Complete Lesson' : 'Continue'}
+      </button>
+    ) : (
+      <button
+        disabled
+        className="px-4 py-2 rounded bg-gray-300 text-gray-600 cursor-not-allowed"
+      >
+        Completed
+      </button>
+    )}
+  </div>
+</div>
+
     );
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      {/* Points and Progress Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <div className="bg-blue-100 p-4 rounded-lg">
-          <p className="text-lg">Your Points: {userPoints}</p>
-        </div>
-        <div className="bg-green-100 p-4 rounded-lg">
-          <p className="text-lg">Completed Lessons: {completedLessons.length}/{lessons.length}</p>
-        </div>
-      </div>
+   
 
-      {/* Trading Contest Leaderboard Section */}
-      <div className="mb-8">
-        <h3 className="text-2xl font-semibold mb-4">Trading Contest Leaderboard</h3>
-        <div className="bg-white rounded-lg shadow-lg p-4 overflow-x-auto">
-          {isLoading ? (
-            <div className="text-center py-4">Loading leaderboard...</div>
-          ) : leaderboard.length === 0 ? (
-            <div className="text-center py-4">
-              <p>No participants yet</p>
-              <p className="text-sm text-gray-600 mt-2">
-                Current user: {getUserDisplayName({ email: user?.email, displayName: user?.displayName })}
-              </p>
-            </div>
-          ) : (
-            <table className="w-full min-w-[600px]">
-              <thead>
-                <tr className="border-b-2">
-                  <th className="p-2 text-left">Rank</th>
-                  <th className="p-2 text-left">Trader</th>
-                  <th className="p-2 text-right">Portfolio Value</th>
-                  <th className="p-2 text-right">Returns</th>
-                  <th className="p-2 text-right">Total Trades</th>
-                </tr>
-              </thead>
-              <tbody>
-                {leaderboard.map((trader) => (
-                  <tr 
-                    key={trader.id} 
-                    className={`border-b hover:bg-gray-50 ${
-                      trader.id === user?.uid ? 'bg-blue-50' : ''
-                    }`}
-                  >
-                    <td className="p-2">
-                      <div className="flex items-center gap-2">
-                        {trader.rank <= 3 && (
-                          <span className={`
-                            ${trader.rank === 1 ? 'text-yellow-500' : ''}
-                            ${trader.rank === 2 ? 'text-gray-400' : ''}
-                            ${trader.rank === 3 ? 'text-amber-600' : ''}
-                            text-xl
-                          `}>
-                            {trader.rank === 1 ? '👑' : trader.rank === 2 ? '🥈' : '🥉'}
-                          </span>
-                        )}
-                        #{trader.rank}
-                      </div>
-                    </td>
-                    <td className="p-2 font-medium">{trader.name}</td>
-                    <td className="p-2 text-right">${trader.portfolio.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className={`p-2 text-right ${
-                      parseFloat(trader.returns) > 0 ? 'text-green-600' : 'text-red-600'
-                    }`}>
-                      {trader.returns}
-                    </td>
-                    <td className="p-2 text-right">{trader.trades}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-        
-        <div className="mt-4 bg-blue-50 p-4 rounded-lg">
-          <p className="text-sm text-blue-800">
-            🏆 Contest ends in: <span className="font-semibold">2 days 14 hours</span> |
-            Prize Pool: <span className="font-semibold">$5,000</span>
+    <div className="p-6 max-w-6xl mx-auto">
+  {/* Points and Progress Section */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <div className="bg-teal-100 p-4 rounded-lg">
+      <p className="text-lg text-teal-950">Your Points: {userPoints}</p>
+    </div>
+    <div className="bg-lime-100 p-4 rounded-lg">
+      <p className="text-lg text-teal-950">Completed Lessons: {completedLessons.length}/{lessons.length}</p>
+    </div>
+  </div>
+
+  {/* Trading Contest Leaderboard Section */}
+  <div className="mb-8">
+    <h3 className="text-2xl font-semibold text-white mb-4">Trading Contest Leaderboard</h3>
+    <div className="bg-white rounded-lg shadow-lg p-4 overflow-x-auto">
+      {isLoading ? (
+        <div className="text-center py-4 text-teal-950">Loading leaderboard...</div>
+      ) : leaderboard.length === 0 ? (
+        <div className="text-center py-4 text-teal-950">
+          <p>No participants yet</p>
+          <p className="text-sm text-gray-600 mt-2">
+            Current user: {getUserDisplayName({ email: user?.email, displayName: user?.displayName })}
           </p>
         </div>
-      </div>
-
-      {/* Learning Lessons */}
-      <div className="mb-8">
-        <h3 className="text-2xl font-semibold mb-4">Trading Lessons</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {lessons.map(lesson => (
-            <LessonCard key={lesson.id} lesson={lesson} />
-          ))}
-        </div>
-      </div>
-
-      {/* Trading Contests */}
-      <div className="mb-8">
-        <h3 className="text-2xl font-semibold mb-4">Trading Contests</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {tradingContests.map(contest => (
-            <div key={contest.id} className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="flex justify-between items-start mb-2">
-                <h4 className="text-xl font-semibold">{contest.title}</h4>
-                <span className={`px-2 py-1 rounded text-sm ${
-                  contest.status === 'ongoing' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                }`}>
-                  {contest.status}
-                </span>
-              </div>
-              <p className="text-gray-600 mb-2">Duration: {contest.duration}</p>
-              <p className="text-gray-600 mb-2">Starting Capital: ${contest.startingCapital}</p>
-              <p className="text-gray-600 mb-2">Participants: {contest.participants}</p>
-              <div className="mb-4">
-                <p className="font-medium">Contest Rules:</p>
-                <ul className="list-disc list-inside text-sm text-gray-600">
-                  <li>Minimum trades: {contest.minTrades}</li>
-                  <li>Maximum leverage: {contest.maxLeverage}x</li>
-                  <li>{contest.rules}</li>
-                </ul>
-              </div>
-              <div className="mb-4">
-                <h5 className="font-semibold">Prizes:</h5>
-                <p>1st Place: {contest.prizes.first} points</p>
-                <p>2nd Place: {contest.prizes.second} points</p>
-                <p>3rd Place: {contest.prizes.third} points</p>
-              </div>
-              <div className="text-sm text-gray-600 mb-4">
-                <p>Start Date: {contest.startDate}</p>
-                <p>End Date: {contest.endDate}</p>
-              </div>
-              <button
-                onClick={() => joinContest(contest.id)}
-                className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+      ) : (
+        <table className="w-full min-w-[600px]">
+          <thead>
+            <tr className="border-b-2">
+              <th className="p-2 text-left text-teal-950">Rank</th>
+              <th className="p-2 text-left text-teal-950">Trader</th>
+              <th className="p-2 text-right text-teal-950">Portfolio Value</th>
+              <th className="p-2 text-right text-teal-950">Returns</th>
+              <th className="p-2 text-right text-teal-950">Total Trades</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leaderboard.map((trader) => (
+              <tr
+                key={trader.id}
+                className={`border-b hover:bg-teal-50 ${
+                  trader.id === user?.uid ? 'bg-teal-100' : ''
+                }`}
               >
-                Join Contest
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Weekly Challenges */}
-      <div className="mb-8">
-        <h3 className="text-2xl font-semibold mb-4">Weekly Challenges</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {weeklyChallenges.map(challenge => (
-            <div key={challenge.id} className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="flex justify-between items-start mb-2">
-                <h4 className="text-xl font-semibold">{challenge.title}</h4>
-                <span className={`px-2 py-1 rounded text-sm ${
-                  challenge.difficulty === 'Hard' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'
-                }`}>
-                  {challenge.difficulty}
-                </span>
-              </div>
-              <p className="text-gray-600 mb-4">{challenge.description}</p>
-              <div className="flex justify-between items-center">
-                <span className="text-blue-500">{challenge.points} points</span>
-                <button
-                  onClick={() => acceptWeeklyChallenge(challenge.id)}
-                  className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
-                >
-                  Accept Challenge
-                </button>
-              </div>
-              {userProgress[challenge.id] && (
-                <div className="mt-4">
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div
-                      className="bg-purple-600 h-2.5 rounded-full"
-                      style={{ width: `${userProgress[challenge.id].progress}%` }}
-                    ></div>
+                <td className="p-2">
+                  <div className="flex items-center gap-2">
+                    {trader.rank <= 3 && (
+                      <span
+                        className={`${
+                          trader.rank === 1 ? 'text-yellow-500' : ''
+                        } ${trader.rank === 2 ? 'text-gray-400' : ''} ${
+                          trader.rank === 3 ? 'text-amber-600' : ''
+                        } text-xl`}
+                      >
+                        {trader.rank === 1 ? '👑' : trader.rank === 2 ? '🥈' : '🥉'}
+                      </span>
+                    )}
+                    #{trader.rank}
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+                </td>
+                <td className="p-2 font-medium text-teal-950">{trader.name}</td>
+                <td className="p-2 text-right text-teal-950">
+                  ${trader.portfolio.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                </td>
+                <td
+                  className={`p-2 text-right ${
+                    parseFloat(trader.returns) > 0 ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {trader.returns}
+                </td>
+                <td className="p-2 text-right text-teal-950">{trader.trades}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
+
+    <div className="mt-4 bg-teal-50 p-4 rounded-lg">
+      <p className="text-sm text-teal-800">
+        🏆 Contest ends in: <span className="font-semibold">2 days 14 hours</span> | Prize Pool: <span className="font-semibold">$5,000</span>
+      </p>
+    </div>
+  </div>
+
+  {/* Learning Lessons */}
+  <div className="mb-8">
+    <h3 className="text-2xl font-semibold text-white mb-4">Trading Lessons</h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {lessons.map((lesson) => (
+        <LessonCard key={lesson.id} lesson={lesson} />
+      ))}
+    </div>
+  </div>
+
+  {/* Trading Contests */}
+  <div className="mb-8">
+    <h3 className="text-2xl font-semibold text-white mb-4">Trading Contests</h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {tradingContests.map((contest) => (
+        <div key={contest.id} className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex justify-between items-start mb-2">
+            <h4 className="text-xl font-semibold text-teal-950">{contest.title}</h4>
+            <span
+              className={`px-2 py-1 rounded text-sm ${
+                contest.status === 'ongoing' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+              }`}
+            >
+              {contest.status}
+            </span>
+          </div>
+          <p className="text-gray-600 mb-2">Duration: {contest.duration}</p>
+          <p className="text-gray-600 mb-2">Starting Capital: ${contest.startingCapital}</p>
+          <p className="text-gray-600 mb-2">Participants: {contest.participants}</p>
+          <div className="mb-4">
+            <p className="font-medium text-teal-950">Contest Rules:</p>
+            <ul className="list-disc list-inside text-sm text-gray-600">
+              <li>Minimum trades: {contest.minTrades}</li>
+              <li>Maximum leverage: {contest.maxLeverage}x</li>
+              <li>{contest.rules}</li>
+            </ul>
+          </div>
+          <div className="mb-4">
+            <h5 className="font-semibold text-teal-950">Prizes:</h5>
+            <p>1st Place: {contest.prizes.first} points</p>
+            <p>2nd Place: {contest.prizes.second} points</p>
+            <p>3rd Place: {contest.prizes.third} points</p>
+          </div>
+          <div className="text-sm text-gray-600 mb-4">
+            <p>Start Date: {contest.startDate}</p>
+            <p>End Date: {contest.endDate}</p>
+          </div>
+          <button
+            onClick={() => joinContest(contest.id)}
+            className="w-full bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700"
+          >
+            Join Contest
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Weekly Challenges */}
+  <div className="mb-8">
+    <h3 className="text-2xl font-semibold text-white mb-4">Weekly Challenges</h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {weeklyChallenges.map((challenge) => (
+        <div key={challenge.id} className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex justify-between items-start mb-2">
+            <h4 className="text-xl font-semibold text-teal-950">{challenge.title}</h4>
+            <span
+              className={`px-2 py-1 rounded text-sm ${
+                challenge.difficulty === 'Hard' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'
+              }`}
+            >
+              {challenge.difficulty}
+            </span>
+          </div>
+          <p className="text-gray-600 mb-4">{challenge.description}</p>
+          <div className="flex justify-between items-center">
+            <span className="text-teal-500">{challenge.points} points</span>
+            <button
+              onClick={() => acceptWeeklyChallenge(challenge.id)}
+              className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+            >
+              Accept Challenge
+            </button>
+          </div>
+          {userProgress[challenge.id] && (
+            <div className="mt-4">
+              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <div
+                  className="bg-orange-600 h-2.5 rounded-full"
+                  style={{ width: `${userProgress[challenge.id].progress}%` }}
+                ></div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
   );
 };
 

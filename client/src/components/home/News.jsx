@@ -25,19 +25,19 @@ const News = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen pb-20">
       <div
         ref={widgetRef}
         className="p-4  shadow-2xl rounded-lg w-[920px] flex flex-col items-center"
       >
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+        <h2 className="text-5xl font-semibold font-satosi text-black mb-4">
           Market News
         </h2>
         <div className="tradingview-widget-container w-full">
           <div className="tradingview-widget-container__widget"></div>
-          <div className="tradingview-widget-copyright text-sm text-gray-500">
+          <div className="tradingview-widget-copyright text-xl text-gray-500">
             <a
-              href="https://www.tradingview.com/"
+              href=""
               rel="noopener noreferrer"
               target="_blank"
               className="text-blue-500"

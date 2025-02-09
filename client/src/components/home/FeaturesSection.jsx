@@ -28,7 +28,7 @@ const FeaturesSection = () => {
               animate={isInView ? { rotateY: 0, opacity: 1 } : {}}
               transition={{ type: "spring", stiffness: 200 }}
             >
-              <Icon className="w-12 h-12 align-center text-teal-950 mb-4  " />
+              <Icon className="w-12 h-12  text-teal-950 mb-4 justify-center " />
               <h3 className="text-xl font-bold mb-2">{title}</h3>
               <p className="text-gray-600">{description}</p>
             </motion.div>
