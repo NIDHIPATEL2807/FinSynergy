@@ -41,7 +41,7 @@ function SignupSigninComponent() {
             setEmail("");
             setPassword("");
             createDoc(user);
-            navigate("/dashboard");
+            navigate("/personal-dashboard");
             // Create a doc with user id with the following id
           })
           .catch((error) => {
@@ -74,7 +74,7 @@ function SignupSigninComponent() {
           const user = userCredential.user;
           toast.success("User logged In!");
           console.log("User logged in", user);
-          navigate("/dashboard");
+          navigate("/personal-dashboard");
           setLoading(false);
         })
         .catch((error) => {
@@ -129,7 +129,7 @@ function SignupSigninComponent() {
           console.log("user>>", user);
           createDoc(user);
           setLoading(false);
-          navigate("/dashboard");
+          navigate("/personal-dashboard");
           toast.success("User authenticated");
           // IdP data available using getAdditionalUserInfo(result)
           // ...

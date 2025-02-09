@@ -1,15 +1,26 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+
 @import "tailwindcss";
 
 
-/* :root {
+
+@theme {
+
+  --font-satoshi: "Satoshi", "sans-serif";
+  --font-poppins: "Poppins", "sans-serif";
+
+
   --theme: #2970ff;
   --black: #000;
   --white: #fff;
+  --color-dgreen: #2c5d63;
+  --color-lgreen: #3ab7bf;
   --shadow: 0px 0px 30px 8px rgba(227, 227, 227, 0.75);
-}
-*{
+ }
+
+/* *{
   margin: 0;
   font-family: "Onest", sans-serif !important;
   font-optical-sizing: auto;
@@ -18,7 +29,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */ 
 
 input {
   font-family: "Onest", sans-serif !important;
@@ -26,17 +37,17 @@ input {
 
 
 .custom-input {
-  /* border-width: 0;
+  border-width: 0;
   border-bottom-width: 0.1px;
   width: 100%;
   padding: 0.5rem 0rem;
 
   transition: all 0.3s ease;
-  opacity: 0.8; */
+  opacity: 0.8;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  /* margin-bottom: 10px; */
+   margin-bottom: 10px;
   width: 100%;
   box-sizing: border-box;
   color: #2c3e50;
@@ -48,7 +59,7 @@ input {
   opacity: 1;
   outline: none;
   transform: translate(3px);
-  border-color: var(--theme);
+  border-color: var(--dgreen);
 }
 
 .custom-input::placeholder {

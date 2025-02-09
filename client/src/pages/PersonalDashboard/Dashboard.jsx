@@ -20,6 +20,7 @@ import NoTransactions from "../PersonalDashboard/NoTransactions";
 import FinancialWellnessScore from "../PersonalDashboard/WellnessScore/FinancialWellnessScore";
 import PaymentCalender from "../PersonalDashboard/PaymentCalender/PaymentCalender";
 import DashBoardLoader from "../PersonalDashboard/DashboardLoader/DashboardLoader";
+import DashboardNavbar from "../../components/DashboardNavbar";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -159,6 +160,7 @@ function Dashboard() {
         <DashBoardLoader />
       ) : (
         <>
+        <DashboardNavbar/>
           <Cards
             income={income}
             expense={expense}

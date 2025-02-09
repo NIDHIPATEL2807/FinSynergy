@@ -38,7 +38,7 @@ const Testimonials = () => {
 
   return (
     <div className="w-full text-black py-12 px-4 text-center">
-      <h2 className="text-3xl font-bold">Trusted by Financial Experts & Investors</h2>
+      <h2 className="text-3xl font-satoshi font-bold">Trusted by Financial Experts & Investors</h2>
       <p className="text-lg text-gray-600 mb-6">
         Join thousands of users optimizing their finances with <strong>FinSynergy</strong>
       </p>

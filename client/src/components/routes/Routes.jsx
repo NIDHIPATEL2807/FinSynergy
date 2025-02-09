@@ -1,37 +1,63 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 import HomePage from "../../pages/HomePage";
 import Gamified from "../../pages/Gamified";
 import Dashboard from "../../pages/PersonalDashboard/Dashboard";
 import Signup from "../../pages/Signup";
 import Navbar from "../../components/Navbar";
+import DiscussionForum from "../../pages/DiscussionForum";
 
 const AppRoutes = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, loading] = useAuthState(auth);
+
+  // Protected Route component
+  const ProtectedRoute = ({ children }) => {
+    if (loading) return <div>Loading...</div>;
+    if (!user) return <Navigate to="/dashboard" />;
+    return children;
+  };
 
   return (
     <Router>
-      <Navbar />
+      {/* Move useLocation logic inside Router */}
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/gamified" element={<Gamified />} />
-        {console.log(isAuthenticated)}
-        {/* If user is not auAthenticated, redirect to signup first */}
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
+        <Route 
+          path="/" 
+          element={
+            <>
+              <Navbar />  {/* Navbar only for HomePage */}
+              <HomePage getStartedPath={user ? "/gamified/simulation" : "/signup"} />
+            </>
+          } 
         />
-        
-        {/* After signing up, navigate to dashboard */}
-        <Route
-          path="/signup"
-          element={<Signup onLogin={() => {
-            setIsAuthenticated(true);
-            console.log("isAuthenticated wowowowow: " + isAuthenticated);
-            ;
-          }} />}
+        <Route path="/dashboard" element={!user ? <Signup /> : <Navigate to="/personal-dashboard" />} />
+        <Route 
+          path="/gamified/*" 
+          element={
+            <ProtectedRoute>
+              <Gamified />
+            </ProtectedRoute>
+          } 
         />
-        {console.log(isAuthenticated)}
+        <Route 
+          path="/personal-dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+
+          <Route 
+          path="/discussionforum" 
+          element={
+            <ProtectedRoute>
+              <DiscussionForum />
+            </ProtectedRoute>
+          } 
+        />
+
       </Routes>
     </Router>
   );
